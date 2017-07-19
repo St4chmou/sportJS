@@ -8,12 +8,12 @@
 
 <table>
   <tr *ngFor="let exercice of exercices; let i = index; let f = first; let l = last" class="exercice">
-    <td class="exercice-category" (click)="selectExercice(exercice);" [ngClass]="{'selected': isSelected(exercice)}">
+    <td class="exercice-category" (click)="selectExercice(exercice);" [ngClass]="{'l-text-danger': isSelected(exercice)}">
       <i class="fi" [ngClass]="getClasseByCategorie(exercice.category)"></i>
     </td>
     <td>{{exercice.type}}</td>
     <td>
-      {{exercice.duration}}<span *ngIf="exercice.speed"> à {{exercice.speed}}</span> {{exercice.weight}} {{exercice.nbRepetition}}<span *ngIf="exercice.nbMouvement"> x {{exercice.nbMouvement}}</span>
+      {{exercice.duration}}<span *ngIf="exercice.speed"> à {{exercice.speed}}</span> {{exercice.weight}} {{exercice.nbRepetion}}<span *ngIf="exercice.nbMouvement"> x {{exercice.nbMouvement}}</span>
     </td>
     <td>{{exercice.comment}}</td>
     <td class="actions">
