@@ -1,32 +1,38 @@
+<div *ngIf="exercices.length > 0; else noExercice" class="nb-exercices">
+  Il y a {{exercices.length}} exercice(s).
+</div>
+<ng-template #noExercice>
+  <div class="no-exercices">Aucun exercice dans de programme</div>
+</ng-template>
 
-<div class="nb-exercices">Il y a #todoNombre exercices.</div>
-<div class="no-exercices">Aucun exercice dans de programme</div>
 
 <table>
-  <tr class="exercice">
-    <td class="exercice-category">
-      <i class="fi flaticon-people flaticon-man-cycling flaticon-weightlifting"></i>
+  <tr *ngFor="let exercice of exercices; let i = index; let f = first; let l = last" class="exercice">
+    <td class="exercice-category" (click)="selectExercice(exercice);" [ngClass]="{'selected': isSelected(exercice)}">
+      <i class="fi" [ngClass]="getClasseByCategorie(exercice.category)"></i>
     </td>
-    <td>#todoType</td>
+    <td>{{exercice.type}}</td>
     <td>
-      #todoDuree
-      à
-      #todoVitesse
-      #todoPoids
-      #todoNbRépétition
-      x
-      #todoNbMouvements
+      {{exercice.duration}}<span *ngIf="exercice.speed"> à {{exercice.speed}}</span> {{exercice.weight}} {{exercice.nbRepetition}}<span *ngIf="exercice.nbMouvement"> x {{exercice.nbMouvement}}</span>
     </td>
-    <td>#todoComment</td>
+    <td>{{exercice.comment}}</td>
     <td class="actions">
-        <div class="ordering">
-          <i class="fa fa-arrow-up" aria-hidden="true"></i>
-          <i class="fa fa-arrow-down" aria-hidden="true"></i>
-          <ng-template #emptyCell><div>&nbsp;</div></ng-template>
-        </div>
-        <div class="deleting">
-          <i class="fa fa-trash-o" aria-hidden="true"></i>
-        </div>
+      <div class="ordering">
+        <i *ngIf="!f" (click)="deplacerHaut(i)" class="fa fa-arrow-up" aria-hidden="true"></i>
+        <i *ngIf="!l" (click)="deplacerBas(i)" class="fa fa-arrow-down" aria-hidden="true"></i>
+        <ng-template #emptyCell>
+          <div>&nbsp;</div>
+        </ng-template>
+      </div>
+      <div (click)="delete(i);" class="deleting">
+        <i class="fa fa-trash-o" aria-hidden="true"></i>
+      </div>
     </td>
   </tr>
 </table>
+
+<div class="actions" *ngIf="oneIsSelected()">
+  <button class="sp-btn" (click)="deleteSelectedExercices()">
+    Supprimer les exercices séléctionnés
+  </button>
+</div>

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {ExerciceCategory} from "../../shared/program/exercice";
-import {RecordService} from "../../shared/record/record.service";
-import {Observable} from "rxjs/Observable";
-import {Record} from "../../shared/record/record";
-import {RecordStoreService} from "../record-store.service";
+import { ExerciceCategory } from '../../shared/program/exercice';
+import { RecordService } from '../../shared/record/record.service';
+import { Observable } from 'rxjs/Observable';
+import { Record } from '../../shared/record/record';
+import { RecordStoreService } from '../record-store.service';
 
 @Component({
   selector: 'sp-selector',
@@ -17,7 +17,7 @@ export class SelectorComponent implements OnInit {
   records$: Observable<Record[]>;
 
   constructor(private exerciceService: RecordService,
-              private recordStoreService: RecordStoreService) { }
+    private recordStoreService: RecordStoreService) { }
 
   ngOnInit() {
     this.records$ = this.exerciceService.findAll();

@@ -10,7 +10,7 @@ import { SecurityModule } from './security/security.module';
     RootModule,
     SecurityModule
   ],
-  providers: [{ provide: LOCALE_ID, useValue: "fr-FR" }],
+  providers: [{ provide: LOCALE_ID, useValue: 'fr-FR' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

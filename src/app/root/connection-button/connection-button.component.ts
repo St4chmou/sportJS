@@ -1,8 +1,8 @@
-import {Component, OnInit, ElementRef} from '@angular/core';
-import {Router, NavigationEnd} from '@angular/router';
-import {UserService} from '../../security/user.service';
-import {Observable} from "rxjs/Observable";
-import "rxjs/add/observable/combineLatest";
+import { Component, OnInit, ElementRef } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
+import { UserService } from '../../security/user.service';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/combineLatest';
 
 @Component({
   selector: 'sp-connection-button',
@@ -12,8 +12,8 @@ import "rxjs/add/observable/combineLatest";
 export class ConnectionButtonComponent implements OnInit {
 
   constructor(private router: Router,
-              private elementRef: ElementRef,
-              private userService: UserService) { }
+    private elementRef: ElementRef,
+    private userService: UserService) { }
 
   ngOnInit() {
     const newRoute = this.router.events.filter(event => event instanceof NavigationEnd);

@@ -1,15 +1,15 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import * as d3 from 'd3-selection';
 import * as d3Scale from 'd3-scale';
 import * as d3Shape from 'd3-shape';
 import * as d3Array from 'd3-array';
 import * as d3Axis from 'd3-axis';
-import {ResizeGraphService} from '../resize-graph.service';
-import {Subscription} from 'rxjs/Subscription';
+import { ResizeGraphService } from '../resize-graph.service';
+import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/combineLatest';
-import {Observable} from "rxjs/Observable";
-import {RecordStoreService} from "../../record-store.service";
+import { Observable } from 'rxjs/Observable';
+import { RecordStoreService } from '../../record-store.service';
 
 @Component({
   selector: 'sp-graph',
@@ -18,7 +18,7 @@ import {RecordStoreService} from "../../record-store.service";
 })
 export class GraphComponent implements OnInit, OnDestroy {
 
-  private margin = {top: 20, right: 20, bottom: 20, left: 30};
+  private margin = { top: 20, right: 20, bottom: 20, left: 30 };
   private width = 400;
   private height = 500;
   private x: any;
@@ -29,13 +29,13 @@ export class GraphComponent implements OnInit, OnDestroy {
   sub: Subscription;
 
   constructor(private resizeGraphService: ResizeGraphService,
-              private recordStoreService: RecordStoreService) {}
+    private recordStoreService: RecordStoreService) { }
 
   ngOnInit() {
     this.sub = Observable.combineLatest(
       this.resizeGraphService.getWidth$(),
       this.recordStoreService.getSelectedRecord$(),
-      (width, record) => { return {width, record} }
+      (width, record) => { return { width, record } }
     ).subscribe(widthRecord => {
       this.width = widthRecord.width;
       if (widthRecord.record) {
@@ -68,8 +68,8 @@ export class GraphComponent implements OnInit, OnDestroy {
   private initAxis(data) {
     this.x = d3Scale.scaleLinear().range([0, this.width - this.margin.left - this.margin.right]);
     this.y = d3Scale.scaleLinear().range([this.height - this.margin.top - this.margin.bottom, 0]);
-    this.x.domain(d3Array.extent(data, (d: any) => d.x ));
-    this.y.domain(d3Array.extent(data, (d: any) => d.y ));
+    this.x.domain(d3Array.extent(data, (d: any) => d.x));
+    this.y.domain(d3Array.extent(data, (d: any) => d.y));
   }
 
   private drawAxis() {
@@ -95,8 +95,8 @@ export class GraphComponent implements OnInit, OnDestroy {
 
   private drawLine(data) {
     this.line = d3Shape.line()
-      .x( (d: any) => this.x(d.x) )
-      .y( (d: any) => this.y(d.y) );
+      .x((d: any) => this.x(d.x))
+      .y((d: any) => this.y(d.y));
 
     this.svg.append('path')
       .attr('transform', `translate(${this.margin.left}, 0)`)
@@ -107,7 +107,7 @@ export class GraphComponent implements OnInit, OnDestroy {
       .attr('stroke-linecap', 'round')
       .attr('stroke-width', 1.5)
       .attr('d', this.line)
-    ;
+      ;
   }
 
 }

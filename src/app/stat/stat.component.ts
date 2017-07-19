@@ -1,9 +1,9 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {Observable} from "rxjs/Observable";
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/takeUntil';
 import 'rxjs/add/operator/mergeMap';
-import {ResizeGraphService} from "./visualization/resize-graph.service";
+import { ResizeGraphService } from './visualization/resize-graph.service';
 
 @Component({
   selector: 'sp-stat',
@@ -18,7 +18,7 @@ export class StatComponent implements OnInit {
   @ViewChild('rightBlock') rightBlock: ElementRef;
 
   constructor(private elementRef: ElementRef,
-              private resizeGraphService: ResizeGraphService) { }
+    private resizeGraphService: ResizeGraphService) { }
 
   ngOnInit() {
 
@@ -38,12 +38,12 @@ export class StatComponent implements OnInit {
     this.resizeGraphService.setWidth(blocksWidth.rightWidth);
   }
 
-  private getBlocksWidth(mouseX: number): {leftWidth, rightWidth} {
+  private getBlocksWidth(mouseX: number): { leftWidth, rightWidth } {
     const rectContainer = this.elementRef.nativeElement.getBoundingClientRect();
     const marginAndPaddingSeparator = 7;
     const leftWidth = mouseX - rectContainer.left - marginAndPaddingSeparator;
     const rightWidth = rectContainer.width + rectContainer.left - mouseX - marginAndPaddingSeparator;
-    return {leftWidth, rightWidth};
+    return { leftWidth, rightWidth };
   }
 
 }
