@@ -1,5 +1,5 @@
-
-<h1>Création d'un programme d'entraînement</h1>
+<h1>
+  Création d'un programme d'entraînement</h1>
 
 <form [formGroup]="formProgram" novalidate>
   <div class="form-field">
@@ -16,17 +16,15 @@
       <span>Ajouter un exercice à ce programme</span>
       <i class="fa fa-plus-circle" aria-hidden="true"></i>
     </div>
+    
 
-    <sp-exercices-list></sp-exercices-list>
+    <sp-exercices-list [exercices]="exercices"></sp-exercices-list>
 
     <sp-exercice *ngIf="isExercicePopinOpen" (exercice)="addExercice($event)"></sp-exercice>
   </div>
 </form>
 
 <div class="actions">
-  <button class="sp-btn"
-          [ngClass]="{'disable': formProgram.invalid}"
-          (click)="save()"
-          [title]="getTitle()">Enregistrer</button>
+  <button class="sp-btn" [ngClass]="{'disable': formProgram.invalid}" (click)="save()" [title]="getTitle()">Enregistrer</button>
   <button class="sp-btn sp-btn-is-secondary" (click)="cancel()">Revenir à la liste</button>
 </div>
