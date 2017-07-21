@@ -1,3 +1,4 @@
+import { AuthGuard } from './auth-guard.guard';
 import { NgModule } from '@angular/core';
 import { UserService } from './user.service';
 import { LoginComponent } from './login/login.component';
@@ -10,7 +11,8 @@ import { HttpAuthService } from './http-auth.service';
   ],
   providers: [
     UserService,
-    HttpAuthService
+    HttpAuthService,
+    AuthGuard
   ],
   declarations: [LoginComponent]
 })

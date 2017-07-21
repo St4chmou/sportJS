@@ -1,3 +1,4 @@
+import { AuthGuard } from './../security/auth-guard.guard';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
@@ -16,13 +17,16 @@ const routes: Routes = [{
   component: LoginComponent
 }, {
   path: 'plan',
-  loadChildren: 'app/plan/plan.module#PlanModule'
+  loadChildren: 'app/plan/plan.module#PlanModule',
+  canActivate: [AuthGuard]
 }, {
   path: 'run',
-  loadChildren: 'app/run/run.module#RunModule'
+  loadChildren: 'app/run/run.module#RunModule',
+  canActivate: [AuthGuard]
 }, {
   path: 'stat',
-  loadChildren: 'app/stat/stat.module#StatModule'
+  loadChildren: 'app/stat/stat.module#StatModule',
+  canActivate: [AuthGuard]
 }, {
   path: '**',
   component: UnknownComponent

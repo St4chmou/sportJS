@@ -1,3 +1,4 @@
+import { AuthGuard } from './../security/auth-guard.guard';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
