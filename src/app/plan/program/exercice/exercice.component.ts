@@ -19,18 +19,24 @@ const errorMessage = {
 })
 export class ExerciceComponent implements OnInit {
 
-  constructor() { }
+  @Output() exercice = new EventEmitter<Exercice>();
+
+  exerciceForm: FormGroup;
+
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    // fields:
-    // - category
-    // - type
-    // - duration
-    // - speed
-    // - weigth
-    // - nbRepetion
-    // - nbMouvement
-    // - comment
+
+    this.exerciceForm = this.formBuilder.group({
+      category: this.formBuilder.control(''),
+      type: this.formBuilder.control(''),
+      duration: this.formBuilder.control(''),
+      speed: this.formBuilder.control(''),
+      weigth: this.formBuilder.control(''),
+      nbRepetion: this.formBuilder.control(''),
+      nbMouvement: this.formBuilder.control(''),
+      comment: this.formBuilder.control('')
+    }, { validator: this.getValidator() });
   }
 
   // TODO: validation:
@@ -40,13 +46,51 @@ export class ExerciceComponent implements OnInit {
 
 
   addExercice(): void {
+    if (this.exerciceForm.valid) {
+      this.exercice.emit(this.exerciceForm.value);
+    }
   }
 
   close(): void {
+    this.exercice.emit(null);
   }
 
   getTitle(): string {
     return null;
+  }
+
+  resetForm() {
+    this.exerciceForm.patchValue({
+      type: '',
+      duration: '',
+      speed: '',
+      weigth: '',
+      nbRepetion: '',
+      nbMouvement: ''
+    });
+  }
+
+  private getValidator(): (FormGroup) => any {
+    return formGroup => {
+      if (!formGroup.get('category').value) {
+        return { categoryRequired: true };
+      }
+      else if (formGroup.get('category').value === 'LESSON') {
+        if (!formGroup.get('type').value || !formGroup.get('duration').value) {
+          return { categoryRequired: true };
+        }
+      }
+      else if (formGroup.get('category').value === 'CARDIO_TRAINING') {
+        if (!formGroup.get('duration').value || !formGroup.get('speed').value) {
+          return { categoryRequired: true };
+        }
+      }
+      else if (formGroup.get('category').value === 'REINFORCEMENT') {
+        if (!formGroup.get('type').value || !formGroup.get('nbRepetition').value || !formGroup.get('nbMouvement').value) {
+          return { categoryRequired: true };
+        }
+      }
+    }
   }
 
 }

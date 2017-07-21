@@ -1,19 +1,19 @@
 <sp-popin (exit)="close()">
-  <form>
+  <form [formGroup]="exerciceForm">
 
     <h1>Contruire l'exercice à ajouter au programme</h1>
 
     <div class="form-switch" (click)="resetForm()">
       <div class="value">
-        <input type="radio" id="lesson" value="LESSON">
+        <input type="radio" id="lesson" value="LESSON" formControlName="category">
         <label for="lesson">Cours</label>
       </div>
       <div class="value">
-        <input type="radio" id="cardio" value="CARDIO_TRAINING">
+        <input type="radio" id="cardio" value="CARDIO_TRAINING" formControlName="category">
         <label for="cardio">Cardio</label>
       </div>
       <div class="value">
-        <input type="radio" id="reinforcement" value="REINFORCEMENT">
+        <input type="radio" id="reinforcement" value="REINFORCEMENT" formControlName="category">
         <label for="reinforcement">Renforcement</label>
       </div>
     </div>
@@ -22,7 +22,7 @@
 
       <div class="form-field">
         <label for="type">Type {{ exerciceForm.value.category === 'REINFORCEMENT' ? 'de machine' : 'd\'exercice' }}</label>
-        <input type="text" id="type" list="exerciceTypes">
+        <input type="text" id="type" list="exerciceTypes" formControlName="type">
         <datalist id="exerciceTypes">
           <option [value]="type" *ngFor="let type of exerciceTypes">
         </datalist>
@@ -61,7 +61,7 @@
 
     <div class="form-field">
       <label for="comment">Commentaire</label>
-      <textarea rows="4" id="comment"></textarea>
+      <textarea rows="4" id="comment" formControlName="comment"></textarea>
     </div>
   </form>
 
